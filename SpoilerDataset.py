@@ -24,10 +24,6 @@ import string
 # instance attributes = (words_review_tensor,summary_review_tensor,label,review_date,movie_id,user_id)
 
 
-# In[6]:
-
-
-
 class SpoilerDataset(Dataset):
     def __init__(self,dataset_path,word_to_id_path,id_to_word_path):
         super().__init__()
