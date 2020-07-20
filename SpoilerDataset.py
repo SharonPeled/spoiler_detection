@@ -72,22 +72,27 @@ class SpoilerDataset(Dataset):
                     sentence_label = sentence_with_label[0]
 
                     cleaned_sentence = sentence.translate(str.maketrans('', '', string.punctuation))
-                    words = cleaned_sentence.split()               
-
+                    words = cleaned_sentence.split()
+                    
+                    if len(words) == 0:
+                        continue
+                        
                     for word in words:
                         sentence_input.append(self.word_to_id.get(word,self.word_to_id["<unk>"]))
                     
                     review_input.append(torch.tensor(sentence_input,dtype=torch.long,requires_grad=False))
                     
                     review_labels.append(sentence_label) 
-
-
-                    instance = (review_input,review_labels,book_id,user_id,timestamp,rating)
-
-                    data[counter] = instance
-                    counter += 1
+                
+                
+                
+                instance = (review_input,review_labels,book_id,user_id,timestamp,rating)
+                data[counter] = instance
+                counter += 1
+                
+        print(counter)
                    
-            return data
+        return data
                 
 
 
