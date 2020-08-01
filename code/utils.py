@@ -5,10 +5,14 @@ import os
 
 SPECIAL_CHARACTER = "<unk>"
 DATASET_PATH = '../data/goodreads_reviews_spoiler.json'
+SAMPLE_DATASET_PATH = '../data/dataset_sample.json'
 DATA_DIR = '../data/'
 TEST_RATIO = 0.2
 VALID_RATIO = 0.2
 PROCESSED_SUFFIX = "_processed"
+VOCAB_SIZE = 20000
+# TOTAL_SIZE = 
+# VERSION_SUFFIX = 
 
 
 def clean_word(word):
@@ -35,4 +39,7 @@ def safe_load_pickle(filename):
 
 def save_model(model, version):
     save_pickle(model,f"model_{version}")
+
     
+def map_to_not_in_vocabulary(size):
+    return size 
