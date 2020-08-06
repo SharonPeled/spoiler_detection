@@ -63,7 +63,8 @@ class SpoilerDataset(Dataset):
             for label, sentence in review_sentences:
                 if not sentence:
                     continue
-                sentence_word_ids = [self.word_to_id.get(clean_word(word),self.word_to_id["<unk>"]) for word in sentence.split()]
+                sentence_word_ids = [self.word_to_id[clean_word(word)] for word in sentence.split()]
+#                 sentence_word_ids = [self.word_to_id.get(clean_word(word),self.word_to_id[SPECIAL_CHARACTER]) for word in sentence.split()]
                 review_input.append(torch.tensor(sentence_word_ids,dtype=torch.long,requires_grad=False))
                 review_labels.append(label) 
             instance = (review_input,review_labels,book_id,user_id,timestamp,rating)
