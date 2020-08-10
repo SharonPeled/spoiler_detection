@@ -74,7 +74,9 @@ class SpoilerDataset(Dataset):
     
     def load_pretrained_embeddings(self, dim):
         vectors = GloVe(name="6B",dim=dim)
-        return torch.stack([vectors[self.id_to_word[ind]] for ind in tqdm(range(len(self.id_to_word)))])
+        embeddings = torch.stack([vectors[self.id_to_word[ind]] for ind in tqdm(range(len(self.id_to_word)))])
+        embeddings = embeddings.type(torch.float64)
+        return embeddings
     
     def get_tf_idf_features_tensor(self, sentence_batch, book_id):
         return torch.tensor(
@@ -82,6 +84,7 @@ class SpoilerDataset(Dataset):
                 [self.generate_word_features(word_id, book_id) for word_id in sentence]
                 for sentence in sentence_batch
             ]
+            , dtype=torch.float64
         )
     
     def generate_word_features(self, word_id, book_id):
