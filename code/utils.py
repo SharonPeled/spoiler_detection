@@ -50,7 +50,11 @@ def safe_load_pickle(filename):
 
 
 def save_model(model, version):
-    save_pickle(model,f"model_{version}")
+    torch.save(model.state_dict(), os.path.join(DATA_DIR, f"model_{version}.pt"))
+    
+
+def load_model(model, version):
+    model.load_state_dict(torch.load(os.path.join(DATA_DIR, f"model_{version}")))
 
     
 def map_to_not_in_vocabulary(size):
