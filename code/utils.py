@@ -1,6 +1,7 @@
 import string
 import pickle
 import os
+import torch
 
 
 SPECIAL_CHARACTER = "<unk>"
@@ -54,7 +55,7 @@ def save_model(model, version):
     
 
 def load_model(model, version):
-    model.load_state_dict(torch.load(os.path.join(DATA_DIR, f"model_{version}")))
+    model.load_state_dict(torch.load(os.path.join(DATA_DIR, f"model_{version}.pt")))
 
     
 def map_to_not_in_vocabulary(size):
