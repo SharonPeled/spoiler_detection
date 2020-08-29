@@ -1,1 +1,1 @@
-jupyter lab --ip 10.0.0.30 --port 8888
+jupyter lab --ip 10.0.0.20 --port 8888
