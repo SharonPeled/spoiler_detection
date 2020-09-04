@@ -31,8 +31,23 @@ class DSC(nn.Module):
         inputs = predictions[:,1]
         input_flat = inputs.view(-1)
         target_flat = targets.view(-1)
-        mult = (input_flat * target_flat).sum()
+        mult = (input_flat * target_flat)
         dice_upper = ((1-input_flat) * mult).sum() + self.smooth
-        dice_bottom = ((1-input_flat) * input_flat).sum() + target_flat + self.smooth
+        dice_bottom = ((1-input_flat) * input_flat).sum() + target_flat.sum() + self.smooth
         dice = dice_upper/dice_bottom
         return 1-dice
+        
+
+class FocalLoss(nn.Module):
+    def __init__(self,gamma):
+        super(FocalLoss,self).__init__()
+        self.gamma = gamma
+    
+    def forward(self,predictions,targets):
+        inputs = predictions[:,1]
+        input_flat = inputs.view(-1)
+        target_flat = targets.view(-1).float()
+        bce = nn.BCELoss(reduction='mean')(input_flat,target_flat)
+        bce_exp = torch.exp(-bce)
+        fc = ((1-bce_exp)**self.gamma) * bce
+        return fc

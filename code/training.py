@@ -181,7 +181,8 @@ def train():
     # reduction='sum' because we're using 1 sample batch
 #     criterion = nn.NLLLoss(weight=torch.tensor([NEGATIVE_CLASS_WEIGHT, 1]), reduction='sum').to(DEVICE)
 #     criterion = DiceLoss(smooth=0.1, square=True)
-    criterion = DSC(smooth=1)
+    criterion = DSC(smooth=0.1)
+#     criterion = FocalLoss(1)
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
     
     beg = time.time()
